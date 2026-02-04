@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Monthsary Honey! 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --pink:#ff8fab;
+  --rose:#ffc2d1;
+  --dark:#5a2a27;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#ecd7dc,#e4d7db);
+  font-family:'Poppins',sans-serif;
+  overflow:hidden;
+  color:var(--dark);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.container{
+  width:100%;
+  max-width:1100px;
+  padding:20px;
+  text-align:center;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3rem);
+}
+
+.subtitle{
+  margin:10px 0 30px;
+  opacity:.8;
+}
+
+/* ENVELOPE */
+.envelope-area{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+.envelope{
+  width:260px;
+  height:170px;
+  background:var(--rose);
+  border-radius:12px;
+  position:relative;
+  overflow:visible;
+}
+
+.flap{
+  position:absolute;
+  inset:0;
+  background:var(--pink);
+  clip-path:polygon(0 0,100% 0,50% 60%);
+  transform-origin:top;
+  transition:.6s ease;
+  z-index:1; /* behind letter */
+}
+
+
+/* LETTER FIXED */
+.letter{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:20px;
+  width:85%;
+  height:260px;
+  background:white;
+  border-radius:10px;
+  padding:18px;
+  font-size:.9rem;
+  line-height:1.7;
+  overflow-y:auto;
+  opacity:0;
+  pointer-events:none;
+  transition:.6s ease;
+  box-shadow:0 15px 25px rgba(0,0,0,.2);
+  z-index:5;
+}
+
+.envelope.open .flap{
+  transform:rotateX(180deg);
+}
+
+.envelope.open .letter{
+  bottom:190px;
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* BUTTON */
+.step-btn{
+  margin-top:18px;
+  padding:10px 24px;
+  background:var(--pink);
+  border:none;
+  border-radius:22px;
+  color:white;
+  cursor:pointer;
+  transition:.3s;
+  font-size:1.1rem;
+}
+
+.step-btn:hover{transform:scale(1.05)}
+
+/* STEP 2 */
+.step2{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+}
+
+.step2 button{
+  padding:10px 16px;
+  background:#ff4d6d;
+  border:none;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+  font-size:1.1rem;
+}
+
+/* POPUP */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.4);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:20;
+}
+
+.popup-content{
+  background:white;
+  padding:22px;
+  border-radius:18px;
+  max-width:320px;
+  text-align:center;
+  animation:pop .4s ease;
+}
+
+.popup-content img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+
+.valentine-btn{
+  margin-top:12px;
+  padding:10px 22px;
+  background:var(--pink);
+  border:none;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+  font-size:1.05rem;
+}
+
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* BABY'S BREATH */
+.flower{
+  position:fixed;
+  width:10px;
+  height:10px;
+  background:#FFBFB4;
+  border-radius:50%;
+  box-shadow:
+    14px 0 white,
+    -14px 0 #FFBFB4,
+    0 14px #FFBFB4,
+    0 -14px white;
+  animation:flower 3.9s ease-out forwards;
+  z-index:30;
+}
+
+@keyframes flower{
+  to{
+    transform:translate(var(--x),var(--y)) scale(1.4);
+    opacity:0;
+  }
+}
+
+/* FIREWORKS */
+.firework{
+  position:fixed;
+  width:6px;
+  height:6px;
+  background:transparent;
+  box-shadow:
+    0 -30px #d145ff,
+    0 30px #d145ff,
+    30px 0 #d145ff,
+    -30px 0 #d145ff,
+    22px 22px #ff4040,
+    -22px 22px #ff4040,
+    22px -22px #ff4040,
+    -22px -22px #ff4040;
+  animation:firework 2s ease-out forwards;
+  z-index:25;
+}
+
+@keyframes firework{
+  from{transform:scale(0);opacity:50}
+  to{transform:scale(1.8);opacity:0}
+}
+
+@media(max-width:480px){
+  .letter{height:230px}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <h1>Happy Monthsary, HONEYYY! 💕</h1>
+  <p class="subtitle">Ito muna hehe Sorryy, ILoveYou! 💘</p>
+
+  <div class="envelope-area">
+    <div class="envelope" id="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        Happy Monthsary, Hon! 💖<br><br>
+        Dear Ronicka,<br><br>
+      
+        Sorry hon ito muna surprise ko sayo
+        kasi wrong timing na zero ako and wala ako
+        pangbili ng flowers kahit na deserve mo yun, 
+        babawi ako sa susunod. Thank you lagi for supporting me
+        sa kahit saan, lifting up my mood, for always making me happy,
+        and sa walang sawang pagmamahal. solid ka talaga! HAHAH.
+        So ayon, Ito muna ha, gamitin ko muna konting knowledge ko
+        to make efforts for you. I hope na ma appreciate mo parin kahit papaano.
+        <br>
+        I Love you honey! Happy Monthsary!. 
+        <br><br>
+        Love,
+        <br>
+        Ian 💕
+      </div>
+    </div>
+
+    <button class="step-btn" id="toggleBtn" onclick="toggleEnvelope()">
+      Step 1: Click to Open 💌
+    </button>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step2">
+  <button onclick="showSurprise()">Step 2: 
+    Click for surprise!</button>
+</div>
+
+<!-- POPUP -->
+<div class="popup" id="popup" onclick="closePopup(event)">
+  <div class="popup-content">
+    <img src="pic.png" alt="Hon flowers">
+    <h3>ETOOO NAAAA HONN💖</h3>
+    <p>Will you be my Valentine?</p>
+    <button class="valentine-btn" onclick="acceptValentine()">Yes / Of course 💐</button>
+  </div>
+</div>
+
+<script>
+const envelope=document.getElementById('envelope');
+const btn=document.getElementById('toggleBtn');
+
+function toggleEnvelope(){
+  envelope.classList.toggle('open');
+  btn.textContent = envelope.classList.contains('open')
+    ? 'Close 💕'
+    : 'Step 1: Open 💌';
+}
+
+function showSurprise(){
+  document.getElementById('popup').style.display='flex';
+}
+
+function closePopup(e){
+  if(e.target.id==='popup'){
+    e.currentTarget.style.display='none';
+  }
+}
+
+/* FULLSCREEN BABY'S BREATH + FIREWORKS */
+function acceptValentine(){
+  document.getElementById('popup').style.display='none';
+
+  for(let i=0;i<80;i++){
+    const f=document.createElement('div');
+    f.className='flower';
+    f.style.left='50vw';
+    f.style.top='50vh';
+    f.style.setProperty('--x',(Math.random()*window.innerWidth - window.innerWidth/2)+'px');
+    f.style.setProperty('--y',(Math.random()*window.innerHeight - window.innerHeight/2)+'px');
+    document.body.appendChild(f);
+    setTimeout(()=>f.remove(),3500);
+  }
+
+  for(let i=0;i<12;i++){
+    const fw=document.createElement('div');
+    fw.className='firework';
+    fw.style.left=Math.random()*100+'vw';
+    fw.style.top=Math.random()*100+'vh';
+    document.body.appendChild(fw);
+    setTimeout(()=>fw.remove(),1800);
+  }
+}
+
+/* autoplay fallback */
+window.addEventListener('click',()=>{
+  const music=document.getElementById('bgm');
+  if(music.paused) music.play();
+},{once:true});
+</script>
+
+</body>
+</html>
